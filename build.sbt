@@ -11,7 +11,6 @@ ThisBuild / sonatypeRepository     := "https://s01.oss.sonatype.org/service/loca
 lazy val root = (project in file("."))
   .settings(
     name := "sonatype-central-scala",
-    libraryDependencies += munit % Test,
     developers := List(Developer("jcazevedo", "Joao Azevedo", "joao.c.azevedo@gmail.com", url("https://jcazevedo.net/"))),
     homepage := Some(url("https://github.com/jcazevedo/sonatype-central-scala")),
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
@@ -33,5 +32,3 @@ lazy val root = (project in file("."))
       // pushChanges
     )
   )
-
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
