@@ -1,4 +1,5 @@
 import Dependencies._
+import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 import xerial.sbt.Sonatype.sonatypeCentralHost
 
 ThisBuild / scalaVersion           := "2.13.12"
