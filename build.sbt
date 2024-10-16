@@ -16,8 +16,7 @@ lazy val root = (project in file("."))
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
     scmInfo := Some(ScmInfo(url("https://github.com/jcazevedo/sonatype-central-scala"), "scm:git@github.com:jcazevedo/sonatype-central-scala.git")),
     publishMavenStyle := true,
-    publishTo := sonatypePublishToBundle.value,
-    releasePublishArtifactsAction := PgpKeys.publishSigned.value
+    publishTo := sonatypePublishToBundle.value
   )
 
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
