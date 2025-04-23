@@ -6,6 +6,22 @@ ThisBuild / scalaVersion           := "2.13.12"
 ThisBuild / organization           := "net.jcazevedo"
 ThisBuild / organizationName       := "jcazevedo"
 ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
+ThisBuild / sonatypeTimeoutMillis  := 60 * 60 * 1000
+ThisBuild / publishTo              := sonatypePublishToBundle.value
+ThisBuild / releaseProcess         := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges
+)
 
 lazy val root = (project in file("."))
   .settings(
@@ -14,21 +30,5 @@ lazy val root = (project in file("."))
     homepage := Some(url("https://github.com/jcazevedo/sonatype-central-scala")),
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
     scmInfo := Some(ScmInfo(url("https://github.com/jcazevedo/sonatype-central-scala"), "scm:git@github.com:jcazevedo/sonatype-central-scala.git")),
-    publishMavenStyle := true,
-    publishTo := sonatypePublishToBundle.value,
-    sonatypeTimeoutMillis := 60 * 60 * 1000,
-    releaseProcess := Seq[ReleaseStep](
-      checkSnapshotDependencies,
-      inquireVersions,
-      runClean,
-      runTest,
-      setReleaseVersion,
-      commitReleaseVersion,
-      tagRelease,
-      releaseStepCommandAndRemaining("+publishSigned"),
-      releaseStepCommand("sonatypeBundleRelease"),
-      setNextVersion,
-      commitNextVersion,
-      pushChanges
-    )
+    publishMavenStyle := true
   )
