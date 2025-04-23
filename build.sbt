@@ -16,6 +16,7 @@ lazy val root = (project in file("."))
     scmInfo := Some(ScmInfo(url("https://github.com/jcazevedo/sonatype-central-scala"), "scm:git@github.com:jcazevedo/sonatype-central-scala.git")),
     publishMavenStyle := true,
     publishTo := sonatypePublishToBundle.value,
+    sonatypeTimeoutMillis := 60 * 60 * 1000,
     releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
