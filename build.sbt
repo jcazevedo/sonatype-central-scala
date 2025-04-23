@@ -6,7 +6,6 @@ ThisBuild / scalaVersion           := "2.13.12"
 ThisBuild / organization           := "net.jcazevedo"
 ThisBuild / organizationName       := "jcazevedo"
 ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
-ThisBuild / sonatypeRepository     := "https://s01.oss.sonatype.org/service/local"
 
 lazy val root = (project in file("."))
   .settings(
