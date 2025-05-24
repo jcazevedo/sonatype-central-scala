@@ -1,11 +1,9 @@
 import Dependencies._
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
-import xerial.sbt.Sonatype.sonatypeCentralHost
 
 ThisBuild / scalaVersion           := "2.13.12"
 ThisBuild / organization           := "net.jcazevedo"
 ThisBuild / organizationName       := "jcazevedo"
-ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
 
 lazy val root = (project in file("."))
   .settings(
@@ -15,8 +13,11 @@ lazy val root = (project in file("."))
     licenses := Seq("MIT License" -> url("http://www.opensource.org/licenses/mit-license.php")),
     scmInfo := Some(ScmInfo(url("https://github.com/jcazevedo/sonatype-central-scala"), "scm:git@github.com:jcazevedo/sonatype-central-scala.git")),
     publishMavenStyle := true,
-    sonatypeTimeoutMillis := 60 * 60 * 1000,
-    publishTo := sonatypePublishToBundle.value,
+    publishTo := {
+      val centralSnapshots = "https://central.sonatype.com/repository/maven-snapshots/"
+      if (isSnapshot.value) Some("central-snapshots" at centralSnapshots)
+      else localStaging.value
+    },
     releaseProcess := Seq[ReleaseStep](
       checkSnapshotDependencies,
       inquireVersions,
@@ -26,7 +27,7 @@ lazy val root = (project in file("."))
       commitReleaseVersion,
       tagRelease,
       releaseStepCommandAndRemaining("+publishSigned"),
-      releaseStepCommand("sonatypeBundleRelease"),
+      releaseStepCommand("sonaRelease"),
       setNextVersion,
       commitNextVersion,
       pushChanges
